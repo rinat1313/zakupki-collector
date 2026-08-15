@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://zakupki.gov.ru/223fz/customerAccredited/1" xmlns:t="http://zakupki.gov.ru/223fz/types/1" targetNamespace="http://zakupki.gov.ru/223fz/customerAccredited/1" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://zakupki.gov.ru/223fz/types/1" schemaLocation="Types.xsd"/>
+	<xs:element name="customerAccredited">
+		<xs:annotation>
+			<xs:documentation>Аккредитация заказчика на ЭТП</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="t:packetType">
+					<xs:sequence>
+						<xs:element name="body">
+							<xs:annotation>
+								<xs:documentation>Данные информационного пакета</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="item" type="customerAccreditedItemType">
+										<xs:annotation>
+											<xs:documentation>Позиция в информационном пакете</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="customerAccreditedItemType">
+		<xs:annotation>
+			<xs:documentation>Данные позиции в пакете</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="t:itemType">
+				<xs:sequence>
+					<xs:element name="customerAccreditedData" type="customerAccreditedDataType">
+						<xs:annotation>
+							<xs:documentation>Аккредитация заказчика на ЭТП</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="customerAccreditedDataType">
+		<xs:annotation>
+			<xs:documentation>Аккредитация заказчика на ЭТП</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="guid" type="t:guidType">
+				<xs:annotation>
+					<xs:documentation>Глобальный идентификатор записи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fullName" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование заказчика</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="t:nonEmptyString">
+						<xs:maxLength value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="inn" type="t:innType">
+				<xs:annotation>
+					<xs:documentation>ИНН</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="kpp" type="t:kppType">
+				<xs:annotation>
+					<xs:documentation>КПП</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="electronicPlaceInfo" type="t:electronicPlaceInfoType">
+				<xs:annotation>
+					<xs:documentation>Информация о ЭТП</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="accreditedStartDate" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Дата начала аккредитации на ЭТП</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="accreditedEndDate" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Дата окончания аккредитации на ЭТП</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="accreditedStatus" type="accreditedStatusType">
+				<xs:annotation>
+					<xs:documentation>Статус аккредитации на ЭТП</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:simpleType name="accreditedStatusType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Аккредитовано"/>
+			<xs:enumeration value="Не аккредитовано"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

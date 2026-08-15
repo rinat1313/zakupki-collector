@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://zakupki.gov.ru/223fz/ecp-packetSpec/1"
+           xmlns:t="http://zakupki.gov.ru/223fz/types/1"
+           xmlns:p="http://zakupki.gov.ru/223fz/purchase/1"
+           xmlns:c="http://zakupki.gov.ru/223fz/contract/1"
+           targetNamespace="http://zakupki.gov.ru/223fz/ecp-packetSpec/1"
+           elementFormDefault="qualified"
+>
+    <xs:import namespace="http://zakupki.gov.ru/223fz/types/1" schemaLocation="Types.xsd"/>
+    <xs:import namespace="http://zakupki.gov.ru/223fz/purchase/1" schemaLocation="purchase.xsd"/>
+    <xs:import namespace="http://zakupki.gov.ru/223fz/contract/1" schemaLocation="contract.xsd"/>
+
+    <xs:element name="ecp-packetSpec">
+        <xs:annotation>
+            <xs:documentation>Загрузка сведений, подписанных на специализированных электронных площадках</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="t:packetType">
+                    <xs:sequence>
+                        <xs:element name="body">
+                            <xs:annotation>
+                                <xs:documentation>Данные информационного пакета</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:sequence>
+                                	<xs:choice>
+										<xs:element name="purchaseProtocol" type="p:purchaseProtocolItemType">
+											<xs:annotation>
+												<xs:documentation>Протокол закупки («Иной способ»)</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+                                        <xs:element name="purchaseProtocolPAEP" type="p:purchaseProtocolPAEPItemType">
+                                            <xs:annotation>
+                                                <xs:documentation>Протокол проведения закупки у единственного поставщика</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+										<xs:element name="protocolCancellation" type="p:protocolCancellationType">
+											<xs:annotation>
+												<xs:documentation>Сведения об отмене протокола</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="explanation" type="p:explanationItemType">
+											<xs:annotation>
+												<xs:documentation>Разъяснение</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+                                        <xs:element name="electronicContract" type="c:electronicContractItemType">
+                                            <xs:annotation>
+                                                <xs:documentation>Договор в электронной форме</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+									</xs:choice>
+									<xs:element name="printForm" type="t:documentType">
+										<xs:annotation>
+											<xs:documentation>Документ печатной формы</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="cryptoSign" type="xs:base64Binary">
+										<xs:annotation>
+											<xs:documentation>Данные электронно-цифровой подписи, которой подписана печатная форма в base64</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

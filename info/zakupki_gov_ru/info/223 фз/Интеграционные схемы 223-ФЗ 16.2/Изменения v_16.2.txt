@@ -1,0 +1,6 @@
+Изменения:
+1. В схему contract.xsd в тип contractCompletingDataType добавлен элемент parentGuid (Идентификатор родительской версии сведений)
+2. В схему contract.xsd в тип contractCompletingInfoExportType добавлен элемент parentID (Идентификатор версии)
+3. В схему reference.xsd в тип nsiPurchaseMethodDataType добавлены новые элементы methodType (Тип способа закупки) и phasesNumber (Количество этапов закупки)
+4. В схему Types.xsd в тип customerMainInfoType добавлен новый составной элемент authorityCodes (Полномочия организации, зарегистрированной по СВР)
+5. В схему Types.xsd в тип purchaseMethodClassType добавлены новые значения для способов закупки по 44-ФЗ

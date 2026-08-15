@@ -1,0 +1,1362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://zakupki.gov.ru/223fz/guarantee/1"
+           xmlns:t="http://zakupki.gov.ru/223fz/types/1" targetNamespace="http://zakupki.gov.ru/223fz/guarantee/1"
+           elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:import namespace="http://zakupki.gov.ru/223fz/types/1" schemaLocation="Types.xsd"/>
+
+    <xs:element name="bankGuaranteeRefusal">
+        <xs:annotation>
+            <xs:documentation>Сведения об отказе заказчика в принятии независимой гарантии (изменение сведений)
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="t:packetType">
+                    <xs:sequence>
+                        <xs:element name="body" type="bankGuaranteeRefusalBodyType">
+                            <xs:annotation>
+                                <xs:documentation>Данные информационного пакета</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="bankGuaranteeRefusalBodyType">
+        <xs:sequence>
+            <xs:element name="schemeVersion">
+                <xs:annotation>
+                    <xs:documentation>Атрибут. номер версии схемы элемента</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="14.2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="guid" type="t:guidType">
+                <xs:annotation>
+                    <xs:documentation>Глобальный идентификатор отказа в принятии независимой гарантии
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="id" type="xs:long" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор документа в РК РНГ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="externalId" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Внешний идентификатор документа</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="40"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="regNumber">
+                <xs:annotation>
+                    <xs:documentation>Номер реестровой записи независимой гарантии</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="docNumber" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Номер отказа</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="23"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="versionNumber" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Номер редакции отказа</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:int"/>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="docPublishDate" type="xs:dateTime" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Дата размещения документа. Планируемая или фактическая</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="bank" type="bank" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Сведения о гаранте, выдавшем гарантию</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="supplierInfo" type="supplierInfo" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Информация о поставщике (подрядчике, исполнителе)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="guarantee" type="guarantee" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Информация о независимой гарантии</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="href" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Гиперссылка на опубликованный документ</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="1024"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="printForm" type="printForm" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Печатная форма документа</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="refusalInfo" type="refusalInfo">
+                <xs:annotation>
+                    <xs:documentation>Основание отказа заказчика в принятии независимой гарантии</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="placer" type="placer">
+                <xs:annotation>
+                    <xs:documentation>Информация об организации, разместившей документ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="modificaitonInfo" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Описание изменения</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="reason" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Причина недействительности отказа</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:choice>
+                <xs:element name="urlVSRZ">
+                    <xs:annotation>
+                        <xs:documentation>Url документа в ВСРЗ</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="t:nonEmptyString">
+                            <xs:maxLength value="2000"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="urlKisRmis">
+                    <xs:annotation>
+                        <xs:documentation>Url документа в КИС/РМИС</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="t:nonEmptyString">
+                            <xs:maxLength value="2000"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+            </xs:choice>
+            <xs:element name="attachments" type="t:documentListType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Прикрепленные к сведениям документы</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="bank">
+        <xs:annotation>
+            <xs:documentation>Сведения о гаранте, выдавшем гарантию</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="regNum">
+                <xs:annotation>
+                    <xs:documentation>Код по СПЗ</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:pattern value="\d{11}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="consRegistryNum" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Код по Сводному реестру</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:length value="8"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="fullName" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Полное наименование</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="postAddress" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Почтовый адрес организации</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="factAddress" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Адрес местонахождения организации</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="INN" minOccurs="0" type="t:innType">
+                <xs:annotation>
+                    <xs:documentation>ИНН организации</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="KPP" minOccurs="0" type="t:kppType">
+                <xs:annotation>
+                    <xs:documentation>КПП организации</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="location" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Адрес места нахождения гаранта</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="legalForm" type="legalForm">
+                <xs:annotation>
+                    <xs:documentation>Организационно-правовая форма организации в Общероссийском классификаторе
+                        организационно-правовых форм (ОКОПФ)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="subjectRF" type="subjectRF">
+                <xs:annotation>
+                    <xs:documentation>Субъект РФ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OKTMO" type="OKTMO">
+                <xs:annotation>
+                    <xs:documentation>OKTMO</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="registrationDate" type="xs:dateTime" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Дата поставновки на учет в налоговом органе</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="IKU" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Идентификационный код участника (ИКУ) организации</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="BIK" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>БИК банка, ТОФК</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:pattern value="\d{9}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="legalForm">
+        <xs:annotation>
+            <xs:documentation>Организационно-правовая форма организации в ОКОПФ</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="code">
+                <xs:annotation>
+                    <xs:documentation>Код</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="5"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="singularName" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Наименование в единственном числе</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="subjectRF">
+        <xs:annotation>
+            <xs:documentation>Субъект РФ</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="code">
+                <xs:annotation>
+                    <xs:documentation>Код субъекта</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="name" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Наименование</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="1000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="OKTMO">
+        <xs:annotation>
+            <xs:documentation>ОКТМО</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="code">
+                <xs:annotation>
+                    <xs:documentation>Код по ОКТМО</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="11"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="name" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Наименование</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="supplierInfo">
+        <xs:annotation>
+            <xs:documentation>Информация о поставщике (подрядчике, исполнителе)</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:choice>
+                <xs:element name="legalEntityRF" type="legalEntityRF">
+                    <xs:annotation>
+                        <xs:documentation>Юридическое лицо РФ</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="legalEntityForeignState" type="legalEntityForeignState">
+                    <xs:annotation>
+                        <xs:documentation>Юридическое лицо иностранного государства</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="individualPersonRF" type="individualPersonRF">
+                    <xs:annotation>
+                        <xs:documentation>Физическое лицо РФ</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="individualPersonForeignState" type="individualPersonForeignState">
+                    <xs:annotation>
+                        <xs:documentation>Физическое лицо иностранного государства</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="legalEntityRF">
+        <xs:annotation>
+            <xs:documentation>Юридическое лицо РФ</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="legalForm" type="legalForm">
+                <xs:annotation>
+                    <xs:documentation>Организационно-правовая форма организации в ОКОПФ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="fullName">
+                <xs:annotation>
+                    <xs:documentation>Полное наименование</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="shortName" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Сокращенное наименование</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="250"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="INN" type="t:innType">
+                <xs:annotation>
+                    <xs:documentation>ИНН</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="KPP" type="t:kppType">
+                <xs:annotation>
+                    <xs:documentation>КПП</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OGRN" type="t:ogrnType" minOccurs="0">
+            </xs:element>
+            <xs:element name="registrationDate" type="xs:dateTime">
+                <xs:annotation>
+                    <xs:documentation>Дата постановки на учет в налоговом органе</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="subjectRF" type="subjectRF">
+                <xs:annotation>
+                    <xs:documentation>Ссылка на справочник «Субъекты РФ»</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OKATO" type="OKATO">
+                <xs:annotation>
+                    <xs:documentation>Ссылка на справочник ОКАТО</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OKTMO" type="OKTMO">
+                <xs:annotation>
+                    <xs:documentation>Ссылка на справочник OKTMO</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="address">
+                <xs:annotation>
+                    <xs:documentation>Адрес места нахождения</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="legalEntityForeignState">
+        <xs:annotation>
+            <xs:documentation>Юридическое лицо иностранного государства</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="fullName">
+                <xs:annotation>
+                    <xs:documentation>Полное наименование</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="fullNameLat" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Полное наименование (латинскими буквами)</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="taxPayerCode">
+                <xs:annotation>
+                    <xs:documentation>Код налогоплательщика в стране регистрации или его аналог</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="registerInRFTaxBodies" type="registerInRFTaxBodies" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Поставщик состоит на учете в налоговых органах на территории РФ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="country" type="country">
+                <xs:annotation>
+                    <xs:documentation>Страна регистрации</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="address">
+                <xs:annotation>
+                    <xs:documentation>Адрес места нахождения в стране регистрации</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="placeOfStayInRF" type="placeOfStayInRF" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Наличие у поставщика места пребывания на территории РФ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="individualPersonRF">
+        <xs:annotation>
+            <xs:documentation>Физическое лицо РФ</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="lastName">
+                <xs:annotation>
+                    <xs:documentation>Фамилия</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="250"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="firstName">
+                <xs:annotation>
+                    <xs:documentation>Имя</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="250"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="middleName" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Отчество</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="250"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="INN" type="t:innType">
+                <xs:annotation>
+                    <xs:documentation>ИНН</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OGRNIP" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>ОГРН ИП</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:pattern value="\d{10}|\d{12}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="registrationDate" type="xs:dateTime">
+                <xs:annotation>
+                    <xs:documentation>Дата постановки на учет в налоговом органе</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="subjectRF" type="subjectRF">
+                <xs:annotation>
+                    <xs:documentation>Ссылка на справочник «Субъекты РФ»</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OKATO" type="OKATO" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Ссылка на справочник ОКАТО</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OKTMO" type="OKTMO" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Ссылка на справочник OKTMO</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="address">
+                <xs:annotation>
+                    <xs:documentation>Адрес места нахождения</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="250"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="individualPersonForeignState">
+        <xs:annotation>
+            <xs:documentation>Физическое лицо иностранного государства</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="lastName">
+                <xs:annotation>
+                    <xs:documentation>Фамилия</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="250"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="firstName">
+                <xs:annotation>
+                    <xs:documentation>Имя</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="250"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="middleName" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Отчество</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="250"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="lastNameLat" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Фамилия (латинскими буквами)</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="250"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="firstNameLat" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Имя (латинскими буквами)</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="250"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="middleNameLat" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Отчество(латинскими буквами)</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="250"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="INN" type="t:innType">
+                <xs:annotation>
+                    <xs:documentation>ИНН</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="taxPayerCode" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Код налогоплательщика в стране регистрации или его аналог</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="100"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="country" type="country">
+                <xs:annotation>
+                    <xs:documentation>Страна регистрации</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="address">
+                <xs:annotation>
+                    <xs:documentation>Адрес места нахождения</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="OKATO">
+        <xs:annotation>
+            <xs:documentation>Ссылка справочник ОКАТО</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="code">
+                <xs:annotation>
+                    <xs:documentation>Код по ОКАТО</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="11"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="name" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Наименование</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="registerInRFTaxBodies">
+        <xs:annotation>
+            <xs:documentation>Поставщик состоит на учете в налоговых органах на территории РФ</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="INN" type="t:innType">
+                <xs:annotation>
+                    <xs:documentation>ИНН</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="KPP" type="t:kppType">
+                <xs:annotation>
+                    <xs:documentation>КПП</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="registrationDate" type="xs:dateTime">
+                <xs:annotation>
+                    <xs:documentation>Дата постановки на учет в налоговом органе</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="country">
+        <xs:annotation>
+            <xs:documentation>Страна регистрации</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="countryCode">
+                <xs:annotation>
+                    <xs:documentation>Цифровой код страны</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="3"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="countryFullName" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Полное наименование страны</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="200"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="placeOfStayInRF">
+        <xs:annotation>
+            <xs:documentation>Наличие у поставщика места пребывания на территории РФ</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="subjectRF" type="subjectRF">
+                <xs:annotation>
+                    <xs:documentation>Ссылка на справочник «Субъекты РФ»</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OKATO" type="OKATO">
+                <xs:annotation>
+                    <xs:documentation>Ссылка на справочник ОКАТО</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OKTMO" type="OKTMO">
+                <xs:annotation>
+                    <xs:documentation>Ссылка на справочник OKTMO</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="address">
+                <xs:annotation>
+                    <xs:documentation>Адрес места нахождения</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="guarantee">
+        <xs:annotation>
+            <xs:documentation>Информация о независимой гарантии</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:choice>
+                <xs:element name="purchaseRequest223Ensure" type="purchaseRequest223Ensure">
+                    <xs:annotation>
+                        <xs:documentation>Обеспечение заявки для участия в закупке 223-ФЗ</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:choice>
+            <xs:element name="customer" type="customer">
+                <xs:annotation>
+                    <xs:documentation>Сведения о заказчике</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="purchaseCodes" type="purchaseCodes" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Идентификационные коды закупкок (ИКЗ)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="guaranteeDate" type="xs:dateTime">
+                <xs:annotation>
+                    <xs:documentation>Дата независимой гарантии</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="guaranteeGrantDate" type="xs:dateTime">
+                <xs:annotation>
+                    <xs:documentation>Дата предоставления независимой гарантии</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="guaranteePublishDate" type="xs:dateTime" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Дата размещения независимой гарантии</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="creditOrgNumber" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Номер независимой гарантии, присвоенный гарантом</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="100"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="expiredDate" type="xs:dateTime">
+                <xs:annotation>
+                    <xs:documentation>Дата окончания срока действия независимой гарантии</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="guaranteeAmount">
+                <xs:annotation>
+                    <xs:documentation>Сумма</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="21"/>
+                        <xs:pattern value="(-)?\d+(\.\d{1,2})?"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="currency" type="t:currencyType">
+                <xs:annotation>
+                    <xs:documentation>Валюта</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="entryForceDate" type="xs:dateTime" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Дата вступления в силу независимой гарантии</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="procedure" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Порядок вступления в силу независимой гарантии</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="guaranteeAmountRUR" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Сумма в рублях</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="21"/>
+                        <xs:pattern value="(-)?\d+(\.\d{1,2})?"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="currencyRate" type="t:decimal3_6" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Курс валюты по отношению к рублю</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="customer">
+        <xs:annotation>
+            <xs:documentation>Сведения о заказчике</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="regNum" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Реестровый номер заказчика</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="28"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="fullName" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Полное наименование</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="postAddress" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Почтовый адрес организации</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="factAddress" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Адрес местонахождения организации</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="INN" minOccurs="0" type="t:innType">
+                <xs:annotation>
+                    <xs:documentation>ИНН организации</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="KPP" minOccurs="0" type="t:kppType">
+                <xs:annotation>
+                    <xs:documentation>КПП организации</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="location" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Адрес места нахождения заказчика</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="legalForm" type="legalForm" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Организационно-правовая форма организации в Общероссийском классификаторе
+                        организационно-правовых форм (ОКОПФ)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="subjectRF" type="subjectRF" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Субъект РФ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OKTMO" type="OKTMO" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>OKTMO</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="registrationDate" type="xs:dateTime" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Дата поставновки на учет в налоговом органе</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="IKO" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Идентификационный код участника (ИКУ) организации</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:pattern value="\d{10}|\d{12}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="printForm">
+        <xs:annotation>
+            <xs:documentation>Печатная форма документа</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="url">
+                <xs:annotation>
+                    <xs:documentation>Ссылка для скачивания документа</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="1024"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="signature" minOccurs="0" type="signature">
+                <xs:annotation>
+                    <xs:documentation>Электронная подпись</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="signature">
+        <xs:annotation>
+            <xs:documentation>Электронная подпись</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="CAdES-BES"/>
+            <xs:enumeration value="CAdES-A"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="refusalInfo">
+        <xs:annotation>
+            <xs:documentation>Основание отказа заказчика в принятии независимой гарантии</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="docDate" type="xs:dateTime">
+                <xs:annotation>
+                    <xs:documentation>Дата документа-основания</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="provideGuaranteeDate" type="xs:dateTime">
+                <xs:annotation>
+                    <xs:documentation>Дата предоставления независимой гарантии</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="docNumber">
+                <xs:annotation>
+                    <xs:documentation>Номер документа-основания отказа</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="100"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="refusalReasons" type="refusalReasons">
+                <xs:annotation>
+                    <xs:documentation>Причины отказа в принятии независимой гарантии</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="refusal223Reason">
+        <xs:annotation>
+            <xs:documentation>Причины отказа в принятии независимой гарантии по 223ФЗ. Ссылка на справочник "Причины
+                отказа в принятии независимой гарантии по 223ФЗ"
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="code" type="refusal223ReasonCodeType">
+                <xs:annotation>
+                    <xs:documentation>Код причины</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="name" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Наименование причины</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="placer">
+        <xs:annotation>
+            <xs:documentation>Информация об организации, разместившей документ</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="responsibleOrg" type="responsibleOrg">
+                <xs:annotation>
+                    <xs:documentation>Организация, разместившая документ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="responsibleRole">
+                <xs:annotation>
+                    <xs:documentation>Роль организации, организации, разместившей документ</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="CU">
+                            <xs:annotation>
+                                <xs:documentation>Заказчик</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="RA">
+                            <xs:annotation>
+                                <xs:documentation>Уполномоченный орган</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="AI">
+                            <xs:annotation>
+                                <xs:documentation>Уполномоченное учреждение</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="OA">
+                            <xs:annotation>
+                                <xs:documentation>Организация, осуществляющая полномочия заказчика на основании
+                                    соглашения в
+                                    соответствии с частью 6 статьи 15 Федерального закона № 44-ФЗ
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="responsibleOrg">
+        <xs:annotation>
+            <xs:documentation>Организация, разместившая документ</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="regNum">
+                <xs:annotation>
+                    <xs:documentation>Код по СПЗ</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:pattern value="\d{11}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="INN" type="t:innType">
+                <xs:annotation>
+                    <xs:documentation>ИНН</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="KPP" minOccurs="0" type="t:kppType">
+                <xs:annotation>
+                    <xs:documentation>КПП</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OGRN" type="t:ogrnType" minOccurs="0">
+            </xs:element>
+            <xs:element name="consRegistryNum" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Код по Сводному реестру</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:length value="8"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="fullName" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Полное наименование</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="2000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="purchaseRequest223Ensure">
+        <xs:annotation>
+            <xs:documentation>Обеспечение заявки для участия в закупке 223-ФЗ</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="purchaseNumber" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Регистрационный номер извещения (приглашения)</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:pattern value="\d{11}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="lotNumber" minOccurs="0" type="xs:long">
+                <xs:annotation>
+                    <xs:documentation>Порядковый номер лота</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="purchaseCodes">
+        <xs:annotation>
+            <xs:documentation>Идентификационные коды закупкок (ИКЗ)</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="purchaseCode">
+                <xs:annotation>
+                    <xs:documentation>Идентификационный код закупки</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:pattern value="\d{36}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="refusalReasons">
+        <xs:annotation>
+            <xs:documentation>Причины отказа в принятии независимой гарантии</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="refusal223Reason" type="refusal223Reason" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Причины отказа в принятии независимой гарантии по 223ФЗ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:simpleType name="refusal223ReasonCodeType">
+        <xs:annotation>
+            <xs:documentation>Код причины</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Несоответствие независимой гарантии условиям, указанным в статье 3.4 Федерального закона № 223-ФЗ от 18.07.2011 «О закупках товаров, работ, услуг отдельными видами юридических лиц» (далее - Федеральный закон) в части суммы независимой гарантии, подлежащей уплате гарантом заказчику в случае ненадлежащего исполнения обязательств принципалом</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Несоответствие независимой гарантии условиям, указанным в статье 3.4 Федерального закона № 223-ФЗ от 18.07.2011 «О закупках товаров, работ, услуг отдельными видами юридических лиц» (далее - Федеральный закон) в части отсутствия в независимой гарантии обязательств принципала, надлежащее исполнение которых обеспечивается независимой гарантией</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Несоответствие независимой гарантии условиям, указанным в части 14.3 статьи 3.4 Федерального закона № 223-ФЗ от 18.07.2011 «О закупках товаров, работ, услуг отдельными видами юридических лиц» (далее - Федеральный закон) в части отсутствия в независимой гарантии обязанности гаранта уплатить заказчику неустойку в размере 0,1 процента денежной суммы, подлежащей уплате за каждый день просрочки</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation>Несоответствие независимой гарантии условиям, указанным в подпункте «в» пункта 4 части 14.1 статьи 3.4 Федерального закона № 223-ФЗ от 18.07.2011 «О закупках товаров, работ, услуг отдельными видами юридических лиц» (далее - Федеральный закон) в части отсутствия в независимой гарантии срока действия независимой гарантии или несоответствие срока действия независимой гарантии</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="5">
+                <xs:annotation>
+                    <xs:documentation>Несоответствие независимой гарантии условиям, указанным в подпункте «б» пункта 4 части 14.1 статьи 3.4 Федерального закона № 223-ФЗ от 18.07.2011 «О закупках товаров, работ, услуг отдельными видами юридических лиц» (далее - Федеральный закон) в части отсутствия в независимой гарантии установленного Правительством Российской Федерации перечня документов, предоставляемых заказчиком гаранту одновременно с требованием об осуществлении уплаты денежной суммы по независимой гарантии</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="6">
+                <xs:annotation>
+                    <xs:documentation>Несоответствие независимой гарантии условиям, указанным в подпункте «а» пункта 4 части 14.1 статьи 3.4 Федерального закона № 223-ФЗ от 18.07.2011 «О закупках товаров, работ, услуг отдельными видами юридических лиц» (далее - Федеральный закон) в части отсутствия в независимой гарантии условия об обязанности гаранта уплатить заказчику денежную сумму по независимой гарантии не позднее десяти рабочих дней со дня, следующего за днем получения гарантом требования заказчика</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="7">
+                <xs:annotation>
+                    <xs:documentation>Несоответствие независимой гарантии требованиям, содержащимся в извещении об осуществлении закупки</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="8">
+                <xs:annotation>
+                    <xs:documentation>Несоответствие независимой гарантии требованиям, содержащимся в документации о закупке (в случае, если Федеральным законом предусмотрена документация о закупке)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="9">
+                <xs:annotation>
+                    <xs:documentation>Несоответствие независимой гарантии условиям, указанным в пункте 2 части 31 статьи 3.4 Федерального закона № 223-ФЗ от 18.07.2011 «О закупках товаров, работ, услуг отдельными видами юридических лиц» (далее - Федеральный закон) в части наличия в независимой гарантии условия о представлении заказчиком гаранту судебных актов, подтверждающих неисполнение участником закупки обязательств, обеспечиваемых независимой гарантией</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="10">
+                <xs:annotation>
+                    <xs:documentation>Несоответствие независимой гарантии условиям, указанным в подпункте «е» пункта 5 положения о независимых гарантиях, предоставляемых в качестве обеспечения заявки на участие в  конкурентной закупке товаров, работ, услуг в электронной форме с участием субъектов малого и среднего предпринимательства, и независимых гарантиях, предоставляемых в качестве обеспечения исполнения договора, заключаемого по результатам такой закупки, утвержденного постановлением Правительства Российской Федерации от 09.08.2022 № 1397</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="11">
+                <xs:annotation>
+                    <xs:documentation>Несоответствие независимой гарантии требованиям, содержащимся в приглашении принять участие в определении поставщика (подрядчика, исполнителя)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="12">
+                <xs:annotation>
+                    <xs:documentation>Несоответствие независимой гарантии дополнительным требованиям, предусмотренным частью 32 статьи 3.4 Федерального закона № 223-ФЗ от 18.07.2011 «О закупках товаров, работ, услуг отдельными видами юридических лиц» (далее - Федеральный закон)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="13">
+                <xs:annotation>
+                    <xs:documentation>Отсутствие в независимой гарантии отлагательного условия, предусматривающего заключение договора предоставления независимой гарантии по обязательствам принципала, возникающим из договора при его заключении, в случае предоставления независимой гарантии в качестве обеспечения исполнения договора, и (или) требований к гарантии качества товара, работы, услуги, а также требований к гарантийному сроку и (или) объему предоставления гарантий их качества, к гарантийному обслуживанию товара</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

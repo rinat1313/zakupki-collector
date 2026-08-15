@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 (http://www.altova.com) by A (A) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns="http://zakupki.gov.ru/223fz/integration/1"
+        xmlns:t="http://zakupki.gov.ru/223fz/types/1"
+        targetNamespace="http://zakupki.gov.ru/223fz/integration/1"
+        elementFormDefault="qualified">
+    <xs:import namespace="http://zakupki.gov.ru/223fz/types/1" schemaLocation="Types.xsd"/>
+    <xs:element name="fileUpload">
+        <xs:annotation>
+            <xs:documentation>Запрос на загрузку файла</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="t:packetType">
+                    <xs:sequence>
+                        <xs:element name="body">
+                            <xs:annotation>
+                                <xs:documentation>Данные для загрузки файла</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="fileInfo" type="fileInfo" maxOccurs="unbounded">
+                                        <xs:annotation>
+                                            <xs:documentation>Информация о файле</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="fileUploadResponse">
+        <xs:annotation>
+            <xs:documentation>Результат загрузки файла</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="t:packetType">
+                    <xs:sequence>
+                        <xs:element name="body">
+                            <xs:annotation>
+                                <xs:documentation>Результат обработки</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="refguid" type="t:guidType" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation>Идентификатор обработанного пакета</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="result" type="t:resultType">
+                                        <xs:annotation>
+                                            <xs:documentation>Результат обработки</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="violations" type="t:violationListType" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation>Выявленные в процессе обработки файла нарушения и ошибки</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="refPacketName" type="t:nonEmptyString">
+                                        <xs:annotation>
+                                            <xs:documentation>Имя обработанного пакета</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="data" type="fileUploadResultType" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation>Данные о загруженном файле</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="fileInfo">
+        <xs:annotation>
+            <xs:documentation>Информация о файле</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="guid" type="t:guidType">
+                <xs:annotation>
+                    <xs:documentation>Глобальный идентификатор документа</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="fileName">
+                <xs:annotation>
+                    <xs:documentation>Имя файла</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="t:nonEmptyString">
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="content" type="xs:base64Binary">
+                <xs:annotation>
+                    <xs:documentation>Содержимое файла</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="fileUploadResultType">
+        <xs:annotation>
+            <xs:documentation>Данные о загруженном файле</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="fileInfo" type="fileInfoUploadResult" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Данный о загруженном в ФХ файле</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="fileInfoUploadResult">
+        <xs:annotation>
+            <xs:documentation>Данный о загруженном в ФХ файле</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name = "guid" type="t:guidType">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор документа из запроса</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name = "contentUid" type="t:contentUid">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор документа в ФХ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
