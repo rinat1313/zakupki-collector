@@ -1,0 +1,62 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: zakupki
+      POSTGRES_PASSWORD: zakupki
+      POSTGRES_DB: zakupki
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./migrations:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U zakupki -d zakupki"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: api
+    environment:
+      DATABASE_URL: postgres://zakupki:zakupki@postgres:5432/zakupki?sslmode=disable
+      HTTP_ADDR: ":8080"
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  collector:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: collector
+    environment:
+      DATABASE_URL: postgres://zakupki:zakupki@postgres:5432/zakupki?sslmode=disable
+      EIS_TOKEN: ${EIS_TOKEN:?set EIS_TOKEN UUID}
+      EIS_ENDPOINT: ${EIS_ENDPOINT:-https://int.zakupki.gov.ru/eis-integration/services-mis/getDocsMis}
+      EIS_PROFILE: ${EIS_PROFILE:-mis}
+      EIS_ORG_REGION: ${EIS_ORG_REGION:-77}
+      EIS_SUBSYSTEM: ${EIS_SUBSYSTEM:-PRIZ}
+      EIS_DOC_TYPES: ${EIS_DOC_TYPES:-epNotificationEF2020,fcsNotificationEF,epNotificationEOK2020}
+      EIS_MODE: ${EIS_MODE:-PROD}
+      EIS_LOOKBACK: ${EIS_LOOKBACK:-30m}
+      EIS_INTERVAL: ${EIS_INTERVAL:-29m}
+      EIS_TIMEZONE_OFFSET: ${EIS_TIMEZONE_OFFSET:-3}
+      EIS_TLS_CERT: ${EIS_TLS_CERT:-}
+      EIS_TLS_KEY: ${EIS_TLS_KEY:-}
+      EIS_CA_CERT: ${EIS_CA_CERT:-}
+    volumes:
+      - ${EIS_CERT_DIR:-./certs}:/certs:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  pgdata:

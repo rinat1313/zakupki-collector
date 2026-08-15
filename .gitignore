@@ -1,0 +1,19 @@
+# Binaries
+/bin/
+/dist/
+*.exe
+
+# Secrets / local
+.env
+certs/
+*.pem
+*.key
+*.crt
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+
+# Go
+vendor/
